@@ -25,8 +25,7 @@ class ApiProductRequest extends FormRequest
     public function rules()
     {
         return [
-            "product"=>"required",
-            "product"=>"unique:product,name",
+            "product"=>"required|unique:product,name",
             "image" => "required",
             'image.*'=>'image|mimes:jpeg,jpg,png,gif',
         ];
@@ -40,7 +39,7 @@ class ApiProductRequest extends FormRequest
     {
         return [
             'product.required'     => 'Sản phẩm không được để trống.',
-            'product.unique'     => 'Tên sản phẩm không được trùng',
+            'product.unique:product'     => 'Tên sản phẩm không được trùng',
             'image.required'  => 'Hình ảnh không được để trống.',
             'image.*.mimes'     => 'Không phải file ảnh: file ảnh là: jpg, png, gif, jpeg.',
         ];

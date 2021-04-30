@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryApiController;
 use App\Http\Controllers\FileApiController;
 use App\Http\Controllers\ProductApiController;
+use App\Http\Controllers\SearchApiController;
 use App\Http\Controllers\UserApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,10 @@ Route::post("/login",[UserApiController::class, 'login']);
 Route::post("/register",[UserApiController::class, 'register']);
 Route::get("/profile",[UserApiController::class, 'profile']);
 Route::get("/listuser",[UserApiController::class, 'index']);
+
+Route::get("/find/{id}",[SearchApiController::class, 'find']);
+Route::get("/same/{id}",[SearchApiController::class, 'sameproduct']);
+
 
 Route::apiResource("/category", CategoryApiController::class);
 Route::apiResource("/product", ProductApiController::class);

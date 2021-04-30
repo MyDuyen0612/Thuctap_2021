@@ -44,7 +44,7 @@ class ProductApiController extends Controller
 
             DB::beginTransaction();
 
-            $product = json_decode($request->product);
+            $product = json_decode($request->product); // từ form chuyển về json xl
 
             $newProduct = new Product();
             $newProduct->name = $product->name;
@@ -72,7 +72,7 @@ class ProductApiController extends Controller
                             $filename = Str::slug($product->name . $color->name) . '.' . $extension;
                             $file->move('image/product', $filename);
                             $newColor->image = $filename;
-                            $newColor->urlimg = request()->getHost().':8000/image/product/'.$filename;
+                            $newColor->urlimg = 'http://'.request()->getHost().':8000/image/product/'.$filename;
                         }
                     }
                 }
@@ -109,9 +109,8 @@ class ProductApiController extends Controller
             }
             return response()->json(['data' => $find], 200);
         }
-        else{
-            return response()->json(['message' => "Khong tim thay"], 404);
-        }
+
+        return response()->json(['message' => "Khong tim thay"], 404);
 
     }
 
@@ -124,8 +123,6 @@ class ProductApiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-
         try {
             DB::beginTransaction();
 

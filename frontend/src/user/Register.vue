@@ -1,49 +1,52 @@
 <template>
-  <b-container class="register"> 
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-      <b-form-group
-        id="input-group-1"
-        label="Email address:"
-        label-for="input-1"
-      >
+  <b-container class="register">
+    <b-row>
+      <b-col class="img d-flex justify-content-center" md="12">
+          <img src="../assets/img/register.svg"/>
+      </b-col>
+      <b-col md="12">
+      <b-form @submit="onSubmit" @reset="onReset" v-if="show" class="form">
+      <b-form-group>
         <b-form-input
           id="input-1"
           v-model="form.email"
           :state="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(form.email)? true: false"  
           type="email"
-          placeholder="Enter email"
+          placeholder="Email"
           required
         ></b-form-input>
       </b-form-group>
-      <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
+      <b-form-group>
         <b-form-input
           id="input-2"
           type="text"
           v-model="form.name"
           :state="form.name.length >= 5"
-          placeholder="Enter name"
+          placeholder="Tên"
           required
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-3" label="Password:" label-for="input-3">
+      <b-form-group>
         <b-form-input
           id="input-3"
           v-model.trim="$v.form.password.$model"
           :state="form.password.length >= 6"
           type="password"
+          placeholder="password"
           required
         ></b-form-input>
       </b-form-group>
 
       <div class="error" v-if="!$v.form.password.minLength">Password phai it nhat {{ $v.form.password.$params.minLength.min }} ky tu.</div>
       
-      <b-form-group id="input-group-4" label="Repeat password:" label-for="input-4">
+      <b-form-group>
         <b-form-input
           id="input-4"
           v-model.trim="$v.form.repeatPassword.$model"
           :state="form.repeatPassword === form.password"
           type="password"
+          placeholder="Repeat password"
           required
         ></b-form-input>
       </b-form-group>
@@ -59,14 +62,23 @@
           <b-form-checkbox value="me">Remenber me</b-form-checkbox>
         </b-form-checkbox-group>
       </b-form-group>
-
-      <b-button type="submit" variant="primary">Submit
+      <div class="d-flex justify-content-around">
+        <div>
+           <b-button type="submit" id="btn">Submit
         <div class="spinner-border text-success" role="status" v-show="isActive">
           <span class="sr-only">Loading...</span>
         </div>
-      </b-button>&nbsp;
-      <b-button type="reset" variant="danger">Reset</b-button>
+      </b-button>
+        </div>
+        <div>
+          <b-button type="reset" style="background: red;">Reset</b-button>
+        </div>
+      </div>
+      
     </b-form>
+      </b-col>
+    </b-row>
+
   </b-container>
 </template>
 
@@ -127,10 +139,47 @@ import {sameAs, minLength } from 'vuelidate/lib/validators'
 </script>
 <style lang="scss" scope>
 .register{
-  margin-top: 5%;
   .error{
     font-size: 12px;
     color: red;
+  }
+  .img{
+    justify-content: flex-end;
+    align-items: center;
+    img{
+      width: 400px;
+    }
+  }
+  .form{
+    position: relative;
+    margin-left: 10%;
+    .form-group {
+    input {
+      font-size: 18px;
+      padding: 10px 10px 10px 10px;
+      display: block;
+      width: 90%;
+      border: none;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+      background: none;
+      }
+    }
+  }
+  .btn{
+  display: block;
+	width: 100%;
+	height: 45px;
+	border-radius: 25px;
+	outline: none;
+	border: none;
+	background-image: linear-gradient(to right, #32be8f, #38d39f, #32be8f);
+	background-size: 200%;
+	color: #fff;
+	font-family: 'Poppins', sans-serif;
+	text-transform: uppercase;
+	margin: 0.5rem 0;
+	cursor: pointer;
+	transition: .5s;
   }
 }
 </style>

@@ -22,8 +22,16 @@ class CreateReferences extends Migration
         Schema::table('product',function(Blueprint $table){
             $table->foreign('category_id')->references('id')->on('category');
         });
+        Schema::table('invoice',function(Blueprint $table){
+            $table->foreign('user_id')->references('id')->on('users');
+        });
+        Schema::table('invoicedetails',function(Blueprint $table){
+            $table->foreign('product_id')->references('id')->on('product');
+        });
+        Schema::table('invoicedetails',function(Blueprint $table){
+            $table->foreign('invoice_id')->references('id')->on('invoice');
+        });
     }
-
     /**
      * Reverse the migrations.
      *

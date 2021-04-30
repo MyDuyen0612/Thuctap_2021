@@ -7,7 +7,7 @@ import Login from '../user/Login.vue'
 import Home from '../user/Index.vue'
 import Register from '../user/Register.vue'
 import Productdetail from '../user/Productdetail.vue'
-
+import CategoryUser from '../user/Category.vue'
 //Admin
 const Admin = () =>
     import ('../views/Admin.vue')
@@ -21,8 +21,8 @@ const Addproduct = () =>
     import ("../admin/product/Addproduct.vue")
 const Updateproduct = () =>
     import ('../admin/product/Updateproduct.vue')
-const Updatecategory = () =>
-    import ('../admin/category/UpdateCategory.vue')
+const ProductDetial = ()=>
+    import ('../admin/product/ProductDetail.vue')
 Vue.use(VueRouter)
 
 const routes = [
@@ -48,6 +48,12 @@ const routes = [
 
             },
             {
+                path: '/category/:idCategory',
+                name: 'CategoryUser',
+                component: CategoryUser
+                    
+            },
+            {
                 path: 'sanpham/:url',
                 name: 'ProductDetail',
                 component: Productdetail
@@ -57,8 +63,7 @@ const routes = [
                 name: "search",
                 component: () =>
                     import ('../user/SearchProduct.vue')
-            }
-
+            },
         ]
     },
 
@@ -86,16 +91,16 @@ const routes = [
             },
             {
                 path: 'category',
-                name: 'category',
+                name: 'Categoryadmin',
                 component: Category,
             },
             {
-                path: ':id',
-                name: 'updatecategory',
-                component: Updatecategory,
+                path: 'detail/:url',
+                name: 'productdetail',
+                component: ProductDetial,
             },
             {
-                path: ':url',
+                path: 'update/:url',
                 name: 'updateproduct',
                 component: Updateproduct,
             },

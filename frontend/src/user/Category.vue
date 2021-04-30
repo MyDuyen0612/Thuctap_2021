@@ -1,11 +1,8 @@
 <template>
   <b-container fluid>
     <b-row>
-      <Carousel />
-    </b-row>
-    <b-row>
       <Product
-        v-for="product in listproduct"
+        v-for="product in products"
         :key="product.id"
         :product="product"
       />
@@ -14,14 +11,13 @@
 </template>
 
 <script>
-import Carousel from "../components/Carousel.vue";
 import Product from "../components/Product.vue";
 export default {
-  components: { Carousel, Product },
+  components: { Product },
   data() {
     return {
       isActive: true,
-      listproduct: [],
+      products: [],
     };
   },
   methods: {
@@ -29,16 +25,26 @@ export default {
       this.isActive = !this.isActive;
     },
   },
-  mounted(){
+  mounted() {
     this.axios
-    .get("http://127.0.0.1:8000/api/product")
-    .then((response)=>{      
-      this.listproduct = response.data.data;
+    .get("http://127.0.0.1:8000/api/find/" +this.$route.params.idCategory)
+    .then((response)=>{
+        this.products = response.data.data;
     })
-    .catch((error)=>{
-      alert(error.response);
+    .catch((error) => {
+        console.log(error);
+      });
+  },
+  beforeUpdate() {
+    this.axios
+    .get("http://127.0.0.1:8000/api/find/" +this.$route.params.idCategory)
+    .then((response)=>{
+        this.products = response.data.data;
     })
-  }
+    .catch((error) => {
+        console.log(error);
+      });
+  },
 };
 </script>
 
@@ -53,22 +59,19 @@ export default {
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.4s;
 }
-
 .page-content {
   width: calc(100% - 17rem);
   margin-left: 17rem;
   transition: all 0.4s;
 }
-
+/* for toggle behavior */
 #sidebar.active {
   margin-left: -17rem;
 }
-
 #content.active {
   width: 100%;
   margin: 0;
 }
-
 @media (max-width: 768px) {
   #sidebar {
     margin-left: -17rem;
@@ -85,12 +88,17 @@ export default {
     width: calc(100% - 17rem);
   }
 }
-
 body {
   background: #599fd9;
   background: -webkit-linear-gradient(to right, #599fd9, #c2e59c);
   background: linear-gradient(to right, #599fd9, #c2e59c);
   min-height: 100vh;
   overflow-x: hidden;
+}
+.products {
+  display: flex;
+  max-width: 1280px;
+  padding: 25px;
+  margin: 0 auto;
 }
 </style>

@@ -14,7 +14,7 @@
           class="mr-3 rounded-circle img-thumbnail shadow-sm"
         /> -->
         <div class="media-body">
-          <h4 class="m-0">My Duyen</h4>
+          <h4 class="m-0">Mỹ Duyên</h4>
           <p class="font-weight-light text-muted mb-0">Administrator</p>
         </div>
       </div>
@@ -30,7 +30,7 @@
           to="/admin/category"
           class="nav-link text-dark font-italic bg-light"
         >
-          <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
+         
           Danh mục
         </router-link>
       </li>
@@ -39,7 +39,7 @@
           to="/admin/sanpham"
           class="nav-link text-dark font-italic bg-light"
         >
-          <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
+         
           Sản phẩm
         </router-link>
       </li>
@@ -48,7 +48,7 @@
           to="/admin/user"
           class="nav-link text-dark font-italic bg-light"
         >
-          <i class="fas fa-user mr-3 text-primary fa-fw"></i>
+         
           User
         </router-link>
       </li>

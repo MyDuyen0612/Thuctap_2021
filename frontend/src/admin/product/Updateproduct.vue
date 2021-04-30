@@ -97,7 +97,6 @@
         </b-container>
       </b-form>
     </b-overlay>
-    {{product}}
   </div>
 </template>
 <script>

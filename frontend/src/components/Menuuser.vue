@@ -16,14 +16,16 @@
       >
         <b-icon icon="person"></b-icon>
       </b-button>
+
       <b-button
-        id="button-1"
+        id="button-1"      
         variant="light"
         to="/profile"
         v-show="user != '' && user != null"
       >
         <b-icon icon="person"></b-icon>
       </b-button>
+
       <b-button id="button-2" variant="light" class="btn-icon">
         <b-icon-suit-heart></b-icon-suit-heart>
       </b-button>
@@ -46,16 +48,17 @@
     <nav class="mb-3">
       <b-nav vertical>
         <b-nav-item to="/" class="item">NEW ARRIVALS</b-nav-item>
-
-        <b-nav-item
-          v-for="(itemCategory, indexCategory) in category"
-          :key="indexCategory"
-          :to="{ name: 'Category', params: { urlCategory: itemCategory.url } }"
+         <b-nav-item
+          v-for="(item, index) in category"
+          :key="index"
+          :to="{ name: 'CategoryUser', params: { idCategory: item.id } }"
           class="item"
-          v-show="itemCategory.product.length > 0"
-          >{{ itemCategory.name.toUpperCase() }}</b-nav-item
+          >
+            {{ item.name.toUpperCase()}}
+          </b-nav-item
         >
       </b-nav>
+      
     </nav>
   </div>
 </template>
@@ -72,7 +75,8 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+    };
   },
 };
 </script>

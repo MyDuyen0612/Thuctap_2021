@@ -2,9 +2,9 @@
   <b-container fluid>
     <b-row>
       <div class="col-lg-6 col-md-12 col-sm-12">
-        <image-magnifier
-          :src="product.color[0].image[0].fileDownloadUri"
-          :zoom-src="product.color[0].image[0].fileDownloadUri"
+        <image-magnifier class="img"
+          :src="imgActive"
+          :zoom-src="imgActive"
           width="100%"
           height="100%"
           zoom-width="450"
@@ -25,7 +25,7 @@
                   v-for="(colorItem, colorIndex) in colors"
                   :key="colorIndex"
                   :style="{ background: colorItem.code }"
-                  @click="ColorActive(colorItem)"
+                  @click="ColorActive(colorItem,colorIndex)"
                   :class="colorActive.code == colorItem.code ? 'selected' : ''"
                 ></span>
               </div>
@@ -43,14 +43,11 @@
                 >
               </div>
               <div class="button">
-                <span class="bg">Khuyến mãi</span>
                 <span
                   >&emsp;
-                  <a href="#"> {{ product.discount.toLocaleString() }} </a>
+                  <a href="#"> {{ product.price.toLocaleString() }} </a>
                   <a
-                    @click="add(product)"
                     class="cart-btn"
-                    v-on:click="alertDisplay"
                   >
                     <i class="fa fa-plus cart-icon"></i>Thêm vào giỏ</a
                   >
@@ -59,14 +56,13 @@
             </div>
           </div>
         </div>
-        <div class="content2">
+        <div>
           <b-tabs
-            active-nav-item-class="font-weight-bold text-uppercase text-danger"
-            active-tab-class="font-weight-bold text-success"
-            content-class="mt-3"
+            active-nav-item-class="font-weight-bold text-uppercase text-success"
+            active-tab-class="font-weight-bold "
           >
             <b-tab title="Mô tả" active
-              ><p>{{ product.introduce }}</p></b-tab
+              ><p>{{ product.describe }}</p></b-tab
             >
             <b-tab title="Đánh giá"
               ><p>0 ĐÁNH GIÁ CHO {{ product.name }}</p></b-tab
@@ -77,79 +73,95 @@
           </b-tabs>
         </div>
       </div>
+      <div class="sameproduct">
+          <h3>Danh mục sản phẩm cùng loại</h3>
+           <b-row>
+            <Product
+              v-for="product in sameproduct"
+              :key="product.id"
+              :product="product"
+            />
+          </b-row>
+      </div>
     </b-row>
   </b-container>
 </template>
 
 <script>
-
+import Product from '../components/Product.vue'
 export default {
   name: "Productdetail",
-
   data() {
     return {
       colors: [],
       sizes: [],
       colorActive: {},
       sizeAcive: {},
+      imgActive: "",
       product: {
-        name: '',
+        name: "",
         price: 0,
-        discount:0,
-        introduce: "",
+        describe: "",
+        category: {},
         color: [
           {
             name: "",
             code: "",
+            image: "", //ten file hinh cua color
             size: [
               {
                 name: "",
-
-                amount: 0,
-              },
-            ],
-            image: [
-              {
-                fileDownloadUri: "",
+                amount: 12,
               },
             ],
           },
         ],
       },
       isActive: true,
-      categorys: null,
+      sameproduct:{},
     };
+  },
+  components:{
+    Product
   },
   methods: {
     activeMenu: function () {
       this.isActive = !this.isActive;
     },
-    alertDisplay() {
-
-     // Hàm $swal gọi SweetAlert vào ứng dụng với cấu hình được chỉ định
-      this.$swal({
-        title: "Thành công!",
-        text: "Sản phẩm đã được thêm vào giỏ hàng!",
-        icon: "success",
-        button: "OK",
-      });
-      //this.$swal('Thành công!', 'Mã giảm của bạn đang được áp dụng. </br>Hãy mua sắm thật nhiều để nhận được nhiều sự ưu đãi hơn nhé!', 'OK');
-    },
-    ColorActive: function (colorItem) {
-      this.ColorActive = colorItem;
+    ColorActive: function (colorItem,colorIndex) {
+      this.colorActive = colorItem;
+      this.imgActive = this.product.color[colorIndex].urlimg;
+      this.sizes = this.product.color[colorIndex].size;
+      this.sizeAcive = this.product.color[colorIndex].size[0];
     },
     SizeActive: function (itemSize) {
-      this.SizeActive = itemSize;
+      this.sizeAcive = itemSize;
     },
+  },
+  created() {
+    this.axios
+    .get("http://127.0.0.1:8000/api/product/"+this.$route.params.url)
+    .then((response)=>{
+      this.product = response.data.data;
+      this.colors = this.product.color;
+      this.sizes = this.product.color[0].size;
+      this.colorActive = this.product.color[0];
+      this.sizeAcive = this.product.color[0].size[0];
+      this.imgActive = this.product.color[0].urlimg;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
-    add(product) {
-      const cartItem = {
-        product: product,
-        amount: 1,
-        price: product.price,
-      };
-      this.$store.commit("addToCart", cartItem);
-    },
+    this.axios
+    .get("http://127.0.0.1:8000/api/same/"+this.$route.params.url)
+    .then((response)=>{
+      this.sameproduct = response.data.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+   
   },
 };
 </script>
@@ -181,11 +193,10 @@ p {
   color: #aaa;
   margin: 20px 0;
 }
-img {
+.img {
   /* position: absolute; */
   top: 0px;
   right: 0px;
-  z-index: 0;
   width: 100%;
   margin-top: -15px;
   height: 85%;
@@ -272,7 +283,7 @@ img {
     transform: translateX(-40%);
   }
 
-  img {
+  .img {
     /* display: none; */
     width: 100%;
     margin-top: 0px !important;
@@ -324,5 +335,8 @@ img {
   margin: 0 15px;
   cursor: pointer;
   transition: all 0.3s;
+}
+.sameproduct{
+  margin-top: -10%;
 }
 </style>

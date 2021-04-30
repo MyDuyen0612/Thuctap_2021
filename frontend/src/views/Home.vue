@@ -5,7 +5,7 @@
       id="sidebar"
       :class="isActive == true ? 'active' : ''"
     >
-      <Menuuser />
+      <Menuuser :category="category"/>
     </div>
 
     <div
@@ -49,6 +49,7 @@ export default {
   data(){
     return{
       isActive: false,
+      category: [],
     }
   },
   computed:{
@@ -79,6 +80,15 @@ export default {
           this.$store.state.name = response.data.user.name;   
         }
       });
+
+     this.axios
+        .get("http://127.0.0.1:8000/api/category")
+        .then((response) => {    
+          this.category = response.data;
+        })
+        .catch((error) => {
+          console.clear(error.response.data);
+        });
   },
   components: {
    Menuuser,

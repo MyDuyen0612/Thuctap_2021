@@ -16,6 +16,7 @@ Vue.use(IconsPlugin)
 Vue.use(VueAxios, axios)
 Vue.use(Vuelidate)
 Vue.use(ImageMagnifier)
+
 Vue.config.productionTip = false
 
 new Vue({

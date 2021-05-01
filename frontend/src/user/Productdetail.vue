@@ -45,11 +45,11 @@
               <div class="button">
                 <span
                   >&emsp;
-                  <a href="#"> {{ product.price.toLocaleString() }} </a>
+                  <a href="#"> {{ product.price.toLocaleString()}} đ</a>
                   <a
-                    class="cart-btn"
+                    class="cart-btn" @click="addCart()"
                   >
-                    <i class="fa fa-plus cart-icon"></i>Thêm vào giỏ</a
+                    <i class="fa fa-plus cart-icon" ></i>Thêm vào giỏ</a
                   >
                 </span>
               </div>
@@ -89,6 +89,7 @@
 
 <script>
 import Product from '../components/Product.vue'
+import swal from 'sweetalert';
 export default {
   name: "Productdetail",
   data() {
@@ -118,7 +119,7 @@ export default {
         ],
       },
       isActive: true,
-      sameproduct:{},
+      sameproduct:[],
     };
   },
   components:{
@@ -137,9 +138,22 @@ export default {
     SizeActive: function (itemSize) {
       this.sizeAcive = itemSize;
     },
+    addCart(){
+      const cartItem = {
+        id: this.product.id,
+        name: this.product.name,
+        size: this.sizeAcive,
+        color: this.colorActive,
+        img: this.imgActive,
+        price: this.product.price,
+        quantity: 1
+      };
+      this.$store.dispatch("addProdcutToCart", cartItem);
+      swal("Đã thêm vào giỏ thành công!");
+    }
   },
   created() {
-    this.axios
+   this.axios
     .get("http://127.0.0.1:8000/api/product/"+this.$route.params.url)
     .then((response)=>{
       this.product = response.data.data;
@@ -160,10 +174,9 @@ export default {
     })
     .catch((error) => {
       console.log(error);
-    });
-   
-  },
-};
+    })
+  }
+}
 </script>
 
 <style scoped>

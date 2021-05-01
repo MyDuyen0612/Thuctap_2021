@@ -27,7 +27,6 @@
               ><i class="fa fa-heart"></i
             ></router-link>
           </li>
-           <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
         </ul>
         <!-- <span class="product-new-label">Sale</span> -->
         <span class="product-discount-label"></span>
@@ -55,11 +54,6 @@
 export default {
   name: "product",
   props: ["product"],
-  data(){
-    return{
-     
-    }
-  },
 };
 </script>
 

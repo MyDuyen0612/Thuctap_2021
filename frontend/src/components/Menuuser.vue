@@ -26,21 +26,15 @@
         <b-icon icon="person"></b-icon>
       </b-button>
 
-      <b-button id="button-2" variant="light" class="btn-icon">
-        <b-icon-suit-heart></b-icon-suit-heart>
-      </b-button>
-
-      <b-button id="button-3" variant="light" to="/cart1">
+      <b-button id="cart" variant="light" to="/cart">
         <b-icon-cart></b-icon-cart>
+         <span>{{amount}}</span>
       </b-button>
 
       <b-tooltip target="button-1" variant="light" placement="top">
         Tài khoản
       </b-tooltip>
-      <b-tooltip target="button-2" variant="light" placement="top">
-        Sản phẩm yêu thích
-      </b-tooltip>
-      <b-tooltip target="button-3" variant="light" placement="top">
+      <b-tooltip target="cart" variant="light" placement="top">
         Giỏ hàng</b-tooltip
       >
     </div>
@@ -72,15 +66,14 @@ export default {
   computed:{
     user(){
       return this.$store.state.name;
-    }
+    },
+    amount(){
+      return this.$store.getters.amount;
+    },
   },
-  data() {
-    return {
-    };
-  },
-};
+}
 </script>
-<style  scoped>
+<style lang="scss" scoped>
 body {
   background: black;
 }
@@ -98,5 +91,21 @@ body {
 
 .btn-icon {
   margin: 0px 12px 0px 12px;
+}
+#cart{
+  margin-left: 10px;
+  span {
+    position: absolute;
+    margin-top: -10px;
+    height: 15px;
+    width: 15px;
+    background: #ec410d;
+    color: #ffffff;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 15px;
+}
 }
 </style>

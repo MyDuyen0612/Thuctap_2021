@@ -8,6 +8,7 @@ import Home from '../user/Index.vue'
 import Register from '../user/Register.vue'
 import Productdetail from '../user/Productdetail.vue'
 import CategoryUser from '../user/Category.vue'
+import Cart from '../user/Cart.vue'
 //Admin
 const Admin = () =>
     import ('../views/Admin.vue')
@@ -63,6 +64,11 @@ const routes = [
                 name: "search",
                 component: () =>
                     import ('../user/SearchProduct.vue')
+            },
+            {
+                path: 'cart',
+                name: "cart",
+                component: Cart
             },
         ]
     },

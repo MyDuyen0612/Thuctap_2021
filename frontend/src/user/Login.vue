@@ -3,10 +3,10 @@
      <img class="wave" src="../assets/img/wave.png">
     <b-alert :show="message != ''" variant="danger">{{ message }}</b-alert>
     <b-row align-h="center" class="mt-5">
-      <b-col cols="5" class="img">
+      <b-col class="img col-5 .col-sm-6 .col-md-4">
         <img src="../assets/img/login.svg"/>
       </b-col>
-      <b-col cols="7" class="form">
+      <b-col class="form col-7 .col-sm-6 .col-md-8">
         <b-form @submit="onSubmit" @reset="onReset" v-if="show">
           <b-form-group>
             <b-form-input

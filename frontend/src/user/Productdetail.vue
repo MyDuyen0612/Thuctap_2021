@@ -42,6 +42,18 @@
                   >{{ itemSize.name }}</span
                 >
               </div>
+              <div class="size-wrap">
+                <h6>Quantity:</h6>
+                 <b-form-input
+                  id="input-amount"
+                  v-model="quantity"
+                  type="number"
+                  min="1"
+                  style="width: 70px; margin-left: 20px"
+                  >{{ quantity}}</b-form-input
+                >
+              </div>
+             
               <div class="button">
                 <span
                   >&emsp;
@@ -99,6 +111,7 @@ export default {
       colorActive: {},
       sizeAcive: {},
       imgActive: "",
+      quantity: 1,
       product: {
         name: "",
         price: 0,
@@ -146,7 +159,7 @@ export default {
         color: this.colorActive,
         img: this.imgActive,
         price: this.product.price,
-        quantity: 1
+        quantity: parseInt(this.quantity),
       };
       this.$store.dispatch("addProdcutToCart", cartItem);
       swal("Đã thêm vào giỏ thành công!");

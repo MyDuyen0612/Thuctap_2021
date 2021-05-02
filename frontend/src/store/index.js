@@ -16,7 +16,7 @@ export default new Vuex.Store({
     },
     addProdcutToCart(state, cartItem) {
       let index =  state.cart.find(item => {
-        return (item.id === cartItem.id && item.color === cartItem.color && item.size === cartItem.size);  
+        return (item.id === cartItem.id && cartItem.color == item.color && item.size == cartItem.size)  
       });
       if(index!=null){
         index.quantity += cartItem.quantity;
@@ -24,11 +24,19 @@ export default new Vuex.Store({
       }
       state.cart.push(cartItem);
     },
+    removeProductCart(state, indexremove){
+      state.cart = state.cart.filter((item, index) =>{
+        return index !== indexremove;
+      })
+    }
   },
   actions: {
     addProdcutToCart: (context, cartItem) => {
-      context.commit("addProdcutToCart", cartItem)
+      context.commit("addProdcutToCart", cartItem);
     },
+    removeProductCart: (context,indexremove)=>{
+      context.commit("removeProductCart",indexremove);
+    }
   },
   modules: {},
   getters:{

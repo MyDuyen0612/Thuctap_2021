@@ -32,12 +32,12 @@
                 <td class="qua-col">
                   <div class="quantity">
                     <div class="pro-qty">
-                      <input type="text" :value="item.quantity" style="width: 50px"/>
+                      {{item.quantity}}
                     </div>
                   </div>
                 </td>
                 <td class="total-price ">{{(item.price*item.quantity).toLocaleString()}} đ</td>
-                <td class="close-td"><i class="fas fa-times" style="cursor: pointer;"></i></td>
+                <td class="close-td" @click="removeProductCart(index)"><i class="fas fa-times" style="cursor: pointer;"></i></td>
               </tr>
             </tbody>
           </table>
@@ -67,6 +67,11 @@ export default {
       return this.$store.getters.total;
     }
   },
+  methods:{
+    removeProductCart(indexremove){
+      this.$store.dispatch('removeProductCart', indexremove);
+    }
+  }
 };
 </script>
 

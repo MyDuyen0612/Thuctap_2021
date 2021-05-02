@@ -23,11 +23,19 @@ export default new Vuex.Store({
         return;
       }
       state.cart.push(cartItem);
+      localStorage.setItem('cart', JSON.stringify(state.cart))
     },
     removeProductCart(state, indexremove){
       state.cart = state.cart.filter((item, index) =>{
         return index !== indexremove;
       })
+    },
+    LoadingVuex(state){
+      let cart = localStorage.getItem('cart');
+      if(cart != null){
+        state.cart = JSON.parse(cart);
+      }
+      
     }
   },
   actions: {
@@ -36,6 +44,9 @@ export default new Vuex.Store({
     },
     removeProductCart: (context,indexremove)=>{
       context.commit("removeProductCart",indexremove);
+    },
+    render: (context)=>{
+      context.commit("LoadingVuex");
     }
   },
   modules: {},

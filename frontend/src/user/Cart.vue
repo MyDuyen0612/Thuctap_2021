@@ -150,7 +150,7 @@ export default {
         }
         span {
           float: right;
-          color: #ec1b1b
+          color: #f80e0e
         }
       }
     }

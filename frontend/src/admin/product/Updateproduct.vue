@@ -1,7 +1,7 @@
 <template>
   <div class="addproduct">
     <b-overlay :show="show" rounded="sm">
-      <h3 class="text-center text-primary">Thêm sản phẩm</h3>
+      <h3 class="text-center text-primary">Sửa sản phẩm</h3>
       <b-form @submit="submit">
         <b-container fluid>
           <b-row>
@@ -88,8 +88,8 @@
               </b-row>
               <b-row>
                 <!-- BUTTOM THÊM SẢN PHẨM -->
-                <b-button id="btnThem" type="submit" variant="primary"
-                  >Thêm sản phẩm</b-button
+                <b-button id="btnThem" type="submit" variant="primary" style="margin-left: 10px; width: 12%;"
+                  >Sửa sản phẩm</b-button
                 ></b-row
               >
             </b-col>
